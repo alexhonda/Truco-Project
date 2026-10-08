@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public game state: only the players can read it; nobody can write from the app.
+    match /games/{gameId} {
+      allow read: if request.auth != null && request.auth.uid in resource.data.playerIds;
+      allow write: if false;
+
+      // Each player's own cards: readable only by that player.
+      match /hands/{uid} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+        allow write: if false;
+      }
+    }
+    // Full server records (both hands). Only the Cloud Functions (admin access) may touch these.
+    match /serverGames/{gameId} {
+      allow read, write: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

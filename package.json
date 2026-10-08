@@ -1,0 +1,20 @@
+{
+  "name": "truco-app",
+  "version": "0.5.2",
+  "private": true,
+  "description": "Online Argentine Truco: rules engine, computer opponent and browser test table",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "build:web": "node scripts/build-web.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "esbuild": "^0.25.0",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=22.6"
+  }
+}
